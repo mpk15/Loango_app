@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="USERSet" EntityType="Model1.USER" />
+    <EntitySet Name="LIVRESet" EntityType="Model1.LIVRE" />
+    <AssociationSet Name="USERLIVRE" Association="Model1.USERLIVRE">
+      <End Role="USER" EntitySet="USERSet" />
+      <End Role="LIVRE" EntitySet="LIVRESet" />
+    </AssociationSet>
+    <EntitySet Name="EMPRUNTSet" EntityType="Model1.EMPRUNT" />
+  </EntityContainer>
+  <EntityType Name="USER">
+    <Key>
+      <PropertyRef Name="Id_user" />
+    </Key>
+    <Property Name="Id_user" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nom_user" Type="String" Nullable="false" />
+    <Property Name="prenom_user" Type="String" Nullable="false" />
+    <NavigationProperty Name="LIVRE" Relationship="Model1.USERLIVRE" FromRole="USER" ToRole="LIVRE" />
+  </EntityType>
+  <EntityType Name="LIVRE">
+    <Key>
+      <PropertyRef Name="Id_livre" />
+    </Key>
+    <Property Name="Id_livre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="titre_livre" Type="String" Nullable="false" />
+    <NavigationProperty Name="USER" Relationship="Model1.USERLIVRE" FromRole="LIVRE" ToRole="USER" />
+    <Property Name="USERId_user" Type="Int32" Nullable="true" />
+  </EntityType>
+  <Association Name="USERLIVRE">
+    <End Type="Model1.USER" Role="USER" Multiplicity="0..1" />
+    <End Type="Model1.LIVRE" Role="LIVRE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USER">
+        <PropertyRef Name="Id_user" />
+      </Principal>
+      <Dependent Role="LIVRE">
+        <PropertyRef Name="USERId_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="EMPRUNT">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+</Schema>

@@ -1,0 +1,34 @@
+﻿@model Loango.Models.LIVRE
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>LIVRE</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.titre_livre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.titre_livre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.USER.nom_user)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.USER.nom_user)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id_livre }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

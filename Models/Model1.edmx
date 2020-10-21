@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="USERSet" EntityType="Model1.Store.USERSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LIVRESet" EntityType="Model1.Store.LIVRESet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EMPRUNTSet" EntityType="Model1.Store.EMPRUNTSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="USERLIVRE" Association="Model1.Store.USERLIVRE">
+      <End Role="USER" EntitySet="USERSet" />
+      <End Role="LIVRE" EntitySet="LIVRESet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="USERSet">
+    <Key>
+      <PropertyRef Name="Id_user" />
+    </Key>
+    <Property Name="Id_user" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nom_user" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="prenom_user" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LIVRESet">
+    <Key>
+      <PropertyRef Name="Id_livre" />
+    </Key>
+    <Property Name="Id_livre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="titre_livre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="USERId_user" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="EMPRUNTSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <Association Name="USERLIVRE">
+    <End Role="USER" Type="Model1.Store.USERSet" Multiplicity="0..1" />
+    <End Role="LIVRE" Type="Model1.Store.LIVRESet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USER">
+        <PropertyRef Name="Id_user" />
+      </Principal>
+      <Dependent Role="LIVRE">
+        <PropertyRef Name="USERId_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="USERSet" EntityType="Model1.USER" />
+          <EntitySet Name="LIVRESet" EntityType="Model1.LIVRE" />
+          <AssociationSet Name="USERLIVRE" Association="Model1.USERLIVRE">
+            <End Role="USER" EntitySet="USERSet" />
+            <End Role="LIVRE" EntitySet="LIVRESet" />
+          </AssociationSet>
+          <EntitySet Name="EMPRUNTSet" EntityType="Model1.EMPRUNT" />
+        </EntityContainer>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="Id_user" />
+          </Key>
+          <Property Name="Id_user" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_user" Type="String" Nullable="false" />
+          <Property Name="prenom_user" Type="String" Nullable="false" />
+          <NavigationProperty Name="LIVRE" Relationship="Model1.USERLIVRE" FromRole="USER" ToRole="LIVRE" />
+        </EntityType>
+        <EntityType Name="LIVRE">
+          <Key>
+            <PropertyRef Name="Id_livre" />
+          </Key>
+          <Property Name="Id_livre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="titre_livre" Type="String" Nullable="false" />
+          <NavigationProperty Name="USER" Relationship="Model1.USERLIVRE" FromRole="LIVRE" ToRole="USER" />
+          <Property Name="USERId_user" Type="Int32" Nullable="true" />
+        </EntityType>
+        <Association Name="USERLIVRE">
+          <End Type="Model1.USER" Role="USER" Multiplicity="0..1" />
+          <End Type="Model1.LIVRE" Role="LIVRE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="Id_user" />
+            </Principal>
+            <Dependent Role="LIVRE">
+              <PropertyRef Name="USERId_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EMPRUNT">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="USERSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.USER)">
+        <MappingFragment StoreEntitySet="USERSet">
+          <ScalarProperty Name="Id_user" ColumnName="Id_user" />
+          <ScalarProperty Name="nom_user" ColumnName="nom_user" />
+          <ScalarProperty Name="prenom_user" ColumnName="prenom_user" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIVRESet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.LIVRE)">
+        <MappingFragment StoreEntitySet="LIVRESet">
+          <ScalarProperty Name="Id_livre" ColumnName="Id_livre" />
+          <ScalarProperty Name="titre_livre" ColumnName="titre_livre" />
+          <ScalarProperty Name="USERId_user" ColumnName="USERId_user" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EMPRUNTSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.EMPRUNT)">
+        <MappingFragment StoreEntitySet="EMPRUNTSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

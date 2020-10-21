@@ -1,0 +1,40 @@
+﻿@model Loango.Models.LIVRE
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>LIVRE</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.titre_livre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.titre_livre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.USER.nom_user)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.USER.nom_user)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

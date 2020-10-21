@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="USERSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.USER)">
+        <MappingFragment StoreEntitySet="USERSet">
+          <ScalarProperty Name="Id_user" ColumnName="Id_user" />
+          <ScalarProperty Name="nom_user" ColumnName="nom_user" />
+          <ScalarProperty Name="prenom_user" ColumnName="prenom_user" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIVRESet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.LIVRE)">
+        <MappingFragment StoreEntitySet="LIVRESet">
+          <ScalarProperty Name="Id_livre" ColumnName="Id_livre" />
+          <ScalarProperty Name="titre_livre" ColumnName="titre_livre" />
+          <ScalarProperty Name="USERId_user" ColumnName="USERId_user" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EMPRUNTSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.EMPRUNT)">
+        <MappingFragment StoreEntitySet="EMPRUNTSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
